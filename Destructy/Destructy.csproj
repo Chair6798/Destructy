@@ -2,9 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
-	<CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
   </PropertyGroup>
-
+  <ItemDefinitionGroup>
+		<Reference>
+			<Private>False</Private>
+		</Reference>
+	</ItemDefinitionGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>D:\Steam\steamapps\common\Building Destruction\BepInEx\core\0Harmony.dll</HintPath>
