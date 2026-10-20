@@ -529,5 +529,10 @@
       <HintPath>D:\Steam\steamapps\common\Building Destruction\Building Destruction_Data\Managed\websocket-sharp.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\XML\GuiPresets\" />
+    <Folder Include="Data\XML\Translations\" />
+    <Folder Include="Data\XML\FuncPaths\" />
+  </ItemGroup>
 
 </Project>

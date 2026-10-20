@@ -5,14 +5,14 @@ namespace Destructy.Gui
 {
     internal class MainUIBehaviour : MonoBehaviour
     {
-        List<BaseList> lists = new List<BaseList>();
+        List<List> lists = new List<List>();
         void Awake()
         {
 
         }
         void InitDefaultLists()
         {
-            lists.Add(new SelfList());
+            
         }
         void OnGUI()
         {

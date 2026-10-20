@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Destructy.Gui.FuncLists
 {
-    internal class BaseList
+    internal class List
     {
         internal string header;
         void DrawHeader()
