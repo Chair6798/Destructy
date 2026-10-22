@@ -1,5 +1,6 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
+using Destructy.Data.XML;
 using HarmonyLib;
 using UnityEngine;
 namespace Destructy.Loader
@@ -16,8 +17,12 @@ namespace Destructy.Loader
             Logger.LogInfo("Destructy plugin loading started!");
             harmony = new Harmony("chaircheats.Destructy");
             harmony.PatchAll();
-            Logger.LogInfo("Destructy plugin loaded!");
+            instance = this;
             logger = Logger;
+            EmbeddedResourceManager.Check();
+            GameFoldersManager.CheckAndInit();
+            Logger.LogInfo("Destructy plugin loaded!");
+            
         }
     }
 }

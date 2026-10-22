@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<folders>
+	<folder id = "main">Destructy</folder>
+	<folder id = "data">Destructy/Data/</folder>
+	<folder id = "xml">Destructy/Data/XML</folder>
+	<folder id = "customUiPresets">Destructy/CustomUiPresets</folder>
+	
+</folders>
