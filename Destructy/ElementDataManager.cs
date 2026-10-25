@@ -29,12 +29,8 @@ namespace Destructy.Data
 
         internal static void LoadAllElementData()
         {
-            string path = GameFoldersManager.GetPathToFolder("elData");
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-
-            }
+            
+            
 
         }
     }

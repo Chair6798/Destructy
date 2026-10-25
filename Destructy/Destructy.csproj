@@ -9,8 +9,6 @@
 		</Reference>
 	</ItemDefinitionGroup>
   <ItemGroup>
-
-	  <EmbeddedResource Include="Data\XML\Folders.xml"/>
 	  
     <Reference Include="0Harmony">
       <HintPath>D:\Steam\steamapps\common\Building Destruction\BepInEx\core\0Harmony.dll</HintPath>
@@ -533,9 +531,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\XML\GuiPresets\" />
-    <Folder Include="Data\XML\Translations\" />
-    <Folder Include="Data\XML\FuncPaths\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 
