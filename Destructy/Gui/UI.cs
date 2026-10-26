@@ -6,20 +6,28 @@ namespace Destructy.Gui
 {
     internal class MainUIBehaviour : MonoBehaviour
     {
-        List<ElementList> lists = new List<ElementList>();
+        static List<ElementList> lists = new List<ElementList>();
         void Awake()
         {
             ElementCollector.Init();
+            foreach (var coll in ElementCollector.collectors.Values)
+            {
+                var o = new ElementList(20 + 5 + coll.elements.Count * (30 + 5), coll.elements);
+            }
         }
         void OnGUI()
         {
-            //you list
-            GUI.Window(0, new Rect(0, 0, 200, 400), DrawElementList, "You");
+            int i = 0;
+            while (i<lists.Count)
+            {
+                GUI.Window(i + 1, new Rect(10 + i * (200 + 10), 10, 200, lists[i].visual_height+20), DrawElementList, lists[i].title);
+                i++;
+            }
 
         }
         static void DrawElementList(int wID)
         {
-
+            lists[wID - 1].Draw();
         }
     }
     internal class ElementList

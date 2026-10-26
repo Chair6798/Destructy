@@ -13,6 +13,7 @@ namespace Destructy
         {
             collectors = new Dictionary<string, Collector>();
             collectors.Add("You", new YouCollector());
+            collectors.Add("Visuals", new VisualsCollector());
         }
     }
     internal class Collector

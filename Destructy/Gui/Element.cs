@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Destructy
 {
@@ -7,9 +9,10 @@ namespace Destructy
     {
         internal string header;
         internal KeyCode bind;
+        internal Dictionary<string, object> data;
         internal virtual string GetRenderText()
         {
-            return header==string.Empty?"NULL":header;
+            return header == string.Empty ? "NULL" : header;
         }
         internal Element(string header)
         {
@@ -19,6 +22,7 @@ namespace Destructy
         {
             Logging.Log("Base class of element data is used. Nothing happend.");
         }
+
     }
     internal class BoolElement : Element
     {
@@ -39,6 +43,8 @@ namespace Destructy
     }
     internal class FuncElement : Element
     {
-        
+        internal UnityEvent Event = new UnityEvent();
+        internal FuncElement(string header) : base(header){}
+
     }
 }
