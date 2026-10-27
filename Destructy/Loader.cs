@@ -19,8 +19,8 @@ namespace Destructy.Loader
             harmony.PatchAll();
             instance = this;
             logger = Logger;
-            EmbeddedResourceManager.Check();
-            GameFoldersManager.CheckAndInit();
+            //EmbeddedResourceManager.Check();
+            //GameFoldersManager.CheckAndInit();
             Logger.LogInfo("Destructy plugin loaded!");
             
         }

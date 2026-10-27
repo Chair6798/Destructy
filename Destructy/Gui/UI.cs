@@ -10,9 +10,12 @@ namespace Destructy.Gui
         void Awake()
         {
             ElementCollector.Init();
-            foreach (var coll in ElementCollector.collectors.Values)
+            foreach (var key in ElementCollector.collectors.Keys)
             {
+                var coll = ElementCollector.collectors[key];
                 var o = new ElementList(20 + 5 + coll.elements.Count * (30 + 5), coll.elements);
+                o.title = key;
+                lists.Add(o);
             }
         }
         void OnGUI()
