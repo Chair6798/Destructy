@@ -56,7 +56,7 @@ namespace Destructy.Gui
         }
         internal virtual void DrawBegin()
         {
-            scrollPos = GUI.BeginScrollView(new Rect(5, 10, 200, scroll_height_equal?visual_height:scroll_height), scrollPos, new Rect(0,0,200,visual_height), false, false);
+            scrollPos = GUI.BeginScrollView(new Rect(0, 10, 200, scroll_height_equal?visual_height:scroll_height), scrollPos, new Rect(0,0,200,visual_height), false, false);
         }
         internal virtual void DrawElements()
         {
