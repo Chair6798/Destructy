@@ -47,7 +47,7 @@ namespace Destructy.Gui
         internal float visual_height = 300;
         internal float scroll_height = 300;
         internal bool scroll_height_equal = true;
-        internal float horizontal_index = 0;
+        //internal float horizontal_index = 0;
         internal virtual void Draw()
         {
             DrawBegin();
@@ -56,7 +56,7 @@ namespace Destructy.Gui
         }
         internal virtual void DrawBegin()
         {
-            scrollPos = GUI.BeginScrollView(new Rect(10 + horizontal_index * (200 + 10), 10, 200, scroll_height_equal?visual_height:scroll_height), scrollPos, new Rect(0,0,200,visual_height), false, false);
+            scrollPos = GUI.BeginScrollView(new Rect(5, 10, 200, scroll_height_equal?visual_height:scroll_height), scrollPos, new Rect(0,0,200,visual_height), false, false);
         }
         internal virtual void DrawElements()
         {

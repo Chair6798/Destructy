@@ -8,7 +8,7 @@ namespace Destructy
 {
     internal static class ElementCollector
     {
-        internal static Dictionary<string, Collector> collectors;
+        internal static Dictionary<string, Collector> collectors = new Dictionary<string, Collector>();
         internal static void Init()
         {
             collectors = new Dictionary<string, Collector>();
@@ -30,6 +30,10 @@ namespace Destructy
                 GenerateElements();
             }
             return elements;
+        }
+        internal Collector()
+        {
+            GenerateElements();
         }
     }
     internal class YouCollector : Collector
