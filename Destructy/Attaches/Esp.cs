@@ -136,7 +136,7 @@ namespace Destructy.Attaches
                      
                 }
             }
-            if (playersEsp || playersTracers)
+            if (ElementCollector.GetBool("Visuals", "players_esp") || ElementCollector.GetBool("Visuals", "players_tracer"))
             {
                 foreach (var plr in NetworkPlayer.players)
                 {
@@ -145,9 +145,16 @@ namespace Destructy.Attaches
                     var pos = Camera.main.WorldToViewportPoint(plr.transform.position);
                     if (pos.z > 0)
                     {
-                        if (playersEsp)
-                            GUI.Label(GetRect(pos), Networking.instance.GetPlayer(plr.OwnerClientId).Value.GetName(), lightred);
-                        if (playersTracers)
+                        if (ElementCollector.GetBool("Visuals", "players_esp"))
+                        {
+                            var pd = Networking.instance.GetPlayer(plr.OwnerClientId);
+                            if (pd.HasValue)
+                            {
+                                GUI.Label(GetRect(pos), pd.Value.GetName(), lightred);
+                            }
+                            
+                        }
+                        if (ElementCollector.GetBool("Visuals", "players_tracer"))
                             DrawLine(GetPosition(new Vector3(0.5f, 0.5f, 0)), GetPosition(pos), Color.red);
 
                     }
@@ -155,7 +162,7 @@ namespace Destructy.Attaches
 
                 }
             }
-            if(playersBoxes)
+            if(ElementCollector.GetBool("Visuals", "players_box"))
             {
                 foreach (var plr in NetworkPlayer.players)
                 {

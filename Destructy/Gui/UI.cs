@@ -13,7 +13,7 @@ namespace Destructy.Gui
             foreach (var key in ElementCollector.collectors.Keys)
             {
                 var coll = ElementCollector.collectors[key];
-                var o = new ElementList(20 + 5 + coll.elements.Count * (30 + 5), coll.elements);
+                var o = new ElementList(5 + coll.elements.Count * (30 + 5), coll.elements);
                 o.title = key;
                 lists.Add(o);
             }
@@ -23,14 +23,14 @@ namespace Destructy.Gui
             int i = 0;
             while (i<lists.Count)
             {
-                GUI.Window(i + 1, new Rect(10 + i * (200 + 10), 10, 200, lists[i].visual_height+20), DrawElementList, lists[i].title);
+                GUI.Window(i + 2, new Rect(10 + i * (200 + 10), 10, 200, lists[i].visual_height+20), DrawElementList, lists[i].title);
                 i++;
             }
 
         }
         static void DrawElementList(int wID)
         {
-            lists[wID - 1].Draw();
+            lists[wID - 2].Draw();
         }
     }
     internal class ElementList

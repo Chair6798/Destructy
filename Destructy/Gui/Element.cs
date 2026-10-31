@@ -26,7 +26,10 @@ namespace Destructy
     }
     internal class BoolElement : Element
     {
-        bool value;
+        internal bool value;
+        internal UnityEvent onEnabled = new UnityEvent();
+        internal UnityEvent onDisabled = new UnityEvent();
+        internal UnityEvent<bool> onToggle = new UnityEvent<bool>();
         internal BoolElement(string header, bool value = false) : base(header)
         {
             this.value = value;
@@ -38,6 +41,14 @@ namespace Destructy
         internal override void Use()
         {
             value = !value;
+            if (value)
+            {
+                onEnabled.Invoke();
+            }else
+            {
+                onDisabled.Invoke();
+            }
+            onToggle.Invoke(value);
             Logging.Log($"BoolElement used. Header: {GetRenderText()} New value: {value}");
         }
     }
@@ -45,6 +56,9 @@ namespace Destructy
     {
         internal UnityEvent Event = new UnityEvent();
         internal FuncElement(string header) : base(header){}
-
+        internal override void Use()
+        {
+            Event.Invoke();
+        }
     }
 }
