@@ -43,7 +43,27 @@ namespace Destructy.Gui
             int i = 1;
             foreach(WeaponData data in WeaponController.instance.weapons)
             {
-                if (GUI.Button(new Rect(5, 5 + i * (30 + 5), width - 10 - 10, 30), data.DisplayName))
+                string dName = data.DisplayName;
+                switch (i)
+                {
+                    case 2:
+                        dName = "Shotgun";
+                        break;
+                    case 5:
+                        dName = "Bulding hammer";
+                        break;
+                    case 9:
+                        dName = "Flamethrower";
+                        break;
+                    case 12:
+                        dName = "C4";
+                        break;
+                    case 13:
+                        dName = "Jackhammer";
+                        break;
+                }
+                
+                if (GUI.Button(new Rect(5, 5 + i * (30 + 5), width - 10 - 10, 30), dName))
                 {
                     GiveWeapon(data);
                 }
