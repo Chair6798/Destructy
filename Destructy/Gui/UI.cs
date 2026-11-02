@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Destructy;
 using System.Xml.Serialization;
+using System.CodeDom;
 namespace Destructy.Gui
 {
     internal class MainUIBehaviour : MonoBehaviour
@@ -69,10 +70,19 @@ namespace Destructy.Gui
         }
         internal virtual void DrawElement(Element element, int index)
         {
-            if(GUI.Button(new Rect(5, 5 + index*(30+5), 190, 30), element.GetRenderText()))
+            switch(element.GetType().Name)
             {
-                element.Use();
+                case ("StringElement"):
+                    ((StringElement)element).value = GUI.TextField(new Rect(5, 5 + index * (30 + 5), 190, 30), ((StringElement)element).value);
+                    break;
+                default:
+                    if (GUI.Button(new Rect(5, 5 + index * (30 + 5), 190, 30), element.GetRenderText()))
+                    {
+                        element.Use();
+                    }
+                    break;
             }
+            
         }
         internal virtual void DrawEnd()
         {

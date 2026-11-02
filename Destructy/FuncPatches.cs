@@ -113,4 +113,44 @@ namespace Destructy
         //    return true;
         //}
     }
+    [HarmonyPatch(typeof(MainMenu))]
+    internal static class MainMenuPatch
+    {
+        [HarmonyPatch("GetPlayerName")]
+        [HarmonyPrefix]
+        private static bool GetPlayerName_Prefix(ref string __result)
+        {
+            if (ElementCollector.GetBool("Status", "change_nickname"))
+            {
+                __result = ElementCollector.GetString("Status", "custom_nickname");
+                return false;
+            }
+            return true;
+        }
+    }
+    [HarmonyPatch(typeof(Chat))]
+    internal static class ChatPatch
+    {
+        [HarmonyPatch("SendChatMessage")]
+        [HarmonyPrefix]
+        private static bool SendChatMessage_Prefix(InputField ___text)
+        {
+            if (ElementCollector.GetEnum("Status", "custom_message_mode") > 0)
+            {
+                int enumVal = ElementCollector.GetEnum("Status", "custom_message_mode");
+                switch (enumVal)
+                {
+                    case 1:
+                        ___text.text = ElementCollector.GetString("Status", "custom_message_style").Replace("msg", ___text.text);
+                        break;
+                    case 2:
+                        ___text.text = ChatMessagePresetFormat.Format(ElementCollector.GetString("Status", "custom_message_style"), ___text.text);
+                        break;
+                }
+                    
+                
+            }
+            return true;
+        }
+    }
 }

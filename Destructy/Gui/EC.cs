@@ -47,6 +47,32 @@ namespace Destructy
             }
             return false;
         }
+        internal static string GetString(string collector, string element)
+        {
+            Element elementInst = GetElement(collector, element);
+            if (elementInst == null)
+            {
+                return null;
+            }
+            if (elementInst is StringElement)
+            {
+                return ((StringElement)elementInst).value;
+            }
+            return null;
+        }
+        internal static int GetEnum(string collector, string element)
+        {
+            Element elementInst = GetElement(collector, element);
+            if (elementInst == null)
+            {
+                return -1;
+            }
+            if (elementInst is EnumElement)
+            {
+                return ((EnumElement)elementInst).value;
+            }
+            return -1;
+        }
     }
     internal class Collector
     {
@@ -75,6 +101,10 @@ namespace Destructy
             elements = new Dictionary<string, Element>();
             elements.Add("godmode", new BoolElement("God Mode"));
             elements.Add("invisibility", new BoolElement("Invisibility"));
+            elements.Add("change_nickname", new BoolElement("Change Nickname"));
+            elements.Add("custom_nickname", new StringElement("Custom Nickname"));
+            elements.Add("custom_message_mode", new EnumElement("Message style", new List<string> { "Off", "Edit", "Preset" }));
+            elements.Add("custom_message_style", new StringElement("Message style"));
         }
     }
     internal class MovementCollector : Collector

@@ -38,6 +38,11 @@ namespace Destructy
         {
             return base.GetRenderText() + ": " + value.ToString();
         }
+
+        internal ref bool GetValueRef()
+        {
+            return ref value;
+        }
         internal override void Use()
         {
             value = !value;
@@ -59,6 +64,41 @@ namespace Destructy
         internal override void Use()
         {
             Event.Invoke();
+        }
+    }
+    internal class StringElement : Element
+    {
+        internal string value;
+        internal StringElement(string header, string value = "") : base(header)
+        {
+            this.value = value;
+        }
+        internal ref string GetValueRef()
+        {
+            return ref value;
+        }
+    }
+    internal class EnumElement : Element
+    {
+        internal int value;
+        internal List<string> options;
+        internal EnumElement(string header, List<string> options, int value = 0) : base(header)
+        {
+            this.options = options;
+            this.value = value;
+        }
+        internal override string GetRenderText()
+        {
+            return base.GetRenderText() + ": " + options[value];
+        }
+        internal override void Use()
+        {
+            value++;
+            if (value >= options.Count)
+            {
+                value = 0;
+            }
+            Logging.Log($"EnumElement used. Header: {GetRenderText()} New value: {value}");
         }
     }
 }
