@@ -45,11 +45,7 @@ namespace Destructy
         }
         internal static bool IsMinigunAvailable()
         {
-            var results = Resources.FindObjectsOfTypeAll(typeof(GameObject))
-                .OfType<GameObject>()
-                .Where(go => go.name.IndexOf("Minigun", System.StringComparison.OrdinalIgnoreCase) >= 0)
-                .ToList();
-            return results.Count > 0&&WeaponController.instance != null&&PlayerInventory.instance != null;
+            return WeaponController.instance != null&&PlayerInventory.instance != null;
         }
     }
 }

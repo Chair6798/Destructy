@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Destructy;
 using System.Xml.Serialization;
 using System.CodeDom;
+using System;
 namespace Destructy.Gui
 {
     internal class MainUIBehaviour : MonoBehaviour
@@ -10,6 +11,8 @@ namespace Destructy.Gui
         static List<ElementList> lists = new List<ElementList>();
         internal static bool render = true;
         internal static float animation = 0f;
+        internal static GUIStyle sliderDNameStyle;
+        internal static GUIStyle sliderValueStyle;
         void Awake()
         {
             ElementCollector.Init();
@@ -23,6 +26,14 @@ namespace Destructy.Gui
         }
         void OnGUI()
         {
+            if (sliderDNameStyle == null)
+            {
+                sliderDNameStyle = new GUIStyle(GUI.skin.label);
+                sliderDNameStyle.alignment = TextAnchor.MiddleLeft;
+                sliderDNameStyle.fontSize = 12;
+                sliderValueStyle = new GUIStyle(sliderDNameStyle);
+                sliderValueStyle.fontSize = 10;
+            }
             int i = 0;
             while (i<lists.Count)
             {
@@ -33,6 +44,7 @@ namespace Destructy.Gui
         }
         void Update()
         {
+            
             if (animation > 0)
             {
                 animation += Time.deltaTime * 2;
@@ -116,6 +128,16 @@ namespace Destructy.Gui
             {
                 case ("StringElement"):
                     ((StringElement)element).value = GUI.TextField(new Rect(5, 5 + index * (30 + 5), 190, 30), ((StringElement)element).value);
+                    break;
+                case ("FloatElement"):
+                    var fe = ((FloatElement)element);
+                    GUI.Label(new Rect(5, 5 + index * (30 + 5), 95+50, 15), fe.GetRenderText(), MainUIBehaviour.sliderDNameStyle);
+                    fe.value = GUI.HorizontalSlider(new Rect(5, 5 + index * (30 + 5)+15, 190, 15), fe.value, fe.min, fe.max);
+                    if(GUI.Button(new Rect(5+95+50, 5 + index * (30 + 5) + 0, 45, 15), "Reset"))
+                    {
+                        fe.Reset();
+                    }
+                    GUI.Label(new Rect(5, 5 + index * (30 + 5)+20, 95 + 50, 15), Math.Round(fe.value, 2).ToString(), MainUIBehaviour.sliderValueStyle);
                     break;
                 default:
                     if (GUI.Button(new Rect(5, 5 + index * (30 + 5), 190, 30), element.GetRenderText()))

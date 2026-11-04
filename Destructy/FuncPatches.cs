@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using Epic.OnlineServices.Presence;
+using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -150,6 +151,20 @@ namespace Destructy
                     
                 
             }
+            return true;
+        }
+    }
+    [HarmonyPatch(typeof(DestructionManager))]
+    internal static class DestructionManagerPatch
+    {
+        [HarmonyPatch("DoDamage")]
+        [HarmonyPrefix]
+        private static bool DoDamage_Prefix(DestructionManager __instance, ref float voxelSize, ref float damageRadius, bool NetHit)
+        {
+            if (NetHit) { return true; }
+            float f = ElementCollector.GetFloat("World", "destruction_multiplier");
+            voxelSize = voxelSize * f;
+            damageRadius = damageRadius * f;
             return true;
         }
     }

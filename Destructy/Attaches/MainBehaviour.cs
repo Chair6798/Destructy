@@ -20,11 +20,11 @@ namespace Destructy.Attaches
             gameObject.AddComponent<MainUIBehaviour>();
             gameObject.AddComponent<NoclipBehaviour>();
             gameObject.AddComponent<WeaponGetMenu>();
-            ((FuncElement)ElementCollector.GetElement("Weapon", "get_menu")).Event.AddListener(() =>
+            (ElementCollector.GetEvent("Weapon", "get_menu")).AddListener(() =>
             {
                 WeaponGetMenu.instance.enabled = true;
             });
-            ((FuncElement)ElementCollector.GetElement("Weapon", "get_minigun")).Event.AddListener(() =>
+            (ElementCollector.GetEvent("Weapon", "get_minigun")).AddListener(() =>
             {
                 MinigunBuilder.Build();
             });

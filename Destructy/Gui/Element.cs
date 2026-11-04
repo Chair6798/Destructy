@@ -62,7 +62,7 @@ namespace Destructy
         internal bool Avaiable = true;
         internal override string GetRenderText()
         {
-            return Avaiable ? base.GetRenderText() : ("<s>" + base.GetRenderText() + "</s>");
+            return Avaiable ? base.GetRenderText() : ("<color=red><i>" + base.GetRenderText() + "</i></color>");
         }
         internal FuncElement(string header) : base(header){}
         internal override void Use()
@@ -104,6 +104,28 @@ namespace Destructy
                 value = 0;
             }
             Logging.Log($"EnumElement used. Header: {GetRenderText()} New value: {value}");
+        }
+    }
+    internal class FloatElement : Element
+    {
+        internal float value = 0f;
+        internal float min = 0f;
+        internal float max = 1f;
+        internal float defaultValue = 0f;
+        internal FloatElement(string header, float value = 0f, float min = 0f, float max = 1f) : base(header)
+        {
+            this.value = value;
+            this.defaultValue = value;
+            this.min = min;
+            this.max = max;
+        }
+        internal void Reset()
+        {
+            value = defaultValue;
+        }
+        internal ref float GetValueRef()
+        {
+            return ref value;
         }
     }
 }

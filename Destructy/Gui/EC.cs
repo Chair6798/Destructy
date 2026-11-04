@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
 
 namespace Destructy
@@ -33,6 +34,19 @@ namespace Destructy
                 return null;
             }
             return elementInst;
+        }
+        internal static UnityEvent GetEvent(string collector, string element)
+        {
+            Element elementInst = GetElement(collector, element);
+            if (elementInst == null)
+            {
+                return null;
+            }
+            if (elementInst is FuncElement)
+            {
+                return ((FuncElement)elementInst).Event;
+            }
+            return null;
         }
         internal static bool GetBool(string collector, string element)
         {
@@ -72,6 +86,19 @@ namespace Destructy
                 return ((EnumElement)elementInst).value;
             }
             return -1;
+        }
+        internal static float GetFloat(string collector, string element)
+        {
+            Element elementInst = GetElement(collector, element);
+            if (elementInst == null)
+            {
+                return -1f;
+            }
+            if (elementInst is FloatElement)
+            {
+                return ((FloatElement)elementInst).value;
+            }
+            return -1f;
         }
     }
     internal class Collector
@@ -155,6 +182,7 @@ namespace Destructy
         {
             elements = new Dictionary<string, Element>();
             elements.Add("rocket_launcher", new BoolElement("Rocket Launcher"));
+            elements.Add("destruction_multiplier", new FloatElement("Destruction Multiplier", 1f, 0f, 5f));
         }
     }
 }
