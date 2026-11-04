@@ -24,6 +24,10 @@ namespace Destructy.Attaches
             {
                 WeaponGetMenu.instance.enabled = true;
             });
+            ((FuncElement)ElementCollector.GetElement("Weapon", "get_minigun")).Event.AddListener(() =>
+            {
+                MinigunBuilder.Build();
+            });
         }
         void Update()
         {
@@ -52,7 +56,8 @@ namespace Destructy.Attaches
                 rocket_timeout = 0f;
             }
             rocket_timeout += Time.deltaTime;
-            //
+            // Minigun Element Update
+            ((FuncElement)ElementCollector.GetElement("Weapon", "get_minigun")).Avaiable = MinigunBuilder.IsMinigunAvailable();
             
         }
     }

@@ -127,6 +127,7 @@ namespace Destructy
             elements.Add("one_hit", new BoolElement("One Hit"));
             //
             elements.Add("get_menu", new FuncElement("Get Menu"));
+            elements.Add("get_minigun", new FuncElement("Get Minigun"));
         }
     }
     internal class VehicleCollector : Collector

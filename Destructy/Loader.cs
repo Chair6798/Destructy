@@ -1,6 +1,6 @@
 ﻿using BepInEx;
+using BepInEx.Configuration;
 using BepInEx.Logging;
-using Destructy.Data.XML;
 using HarmonyLib;
 using UnityEngine;
 namespace Destructy.Loader
@@ -12,6 +12,7 @@ namespace Destructy.Loader
         internal static ManualLogSource logger;
         internal static Harmony harmony;
         internal static GameObject obj;
+        internal static ConfigEntry<KeyCode> menuToggle;
         void Awake()
         {
             Logger.LogInfo("Destructy plugin loading started!");
@@ -19,6 +20,7 @@ namespace Destructy.Loader
             harmony.PatchAll();
             instance = this;
             logger = Logger;
+            menuToggle = Config.Bind("General", "MenuToggle", KeyCode.F1, "Key to toggle the Destructy menu.");
             //EmbeddedResourceManager.Check();
             //GameFoldersManager.CheckAndInit();
             Logger.LogInfo("Destructy plugin loaded!");

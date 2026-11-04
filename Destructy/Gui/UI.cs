@@ -8,6 +8,8 @@ namespace Destructy.Gui
     internal class MainUIBehaviour : MonoBehaviour
     {
         static List<ElementList> lists = new List<ElementList>();
+        internal static bool render = true;
+        internal static float animation = 0f;
         void Awake()
         {
             ElementCollector.Init();
@@ -24,10 +26,50 @@ namespace Destructy.Gui
             int i = 0;
             while (i<lists.Count)
             {
-                GUI.Window(i + 2, new Rect(10 + i * (200 + 10), 10, 200, lists[i].visual_height+20), DrawElementList, lists[i].title);
+                GUI.Window(i + 2, new Rect(10 + i * (200 + 10) + Screen.width*animation, 10, 200, lists[i].visual_height+20), DrawElementList, lists[i].title);
                 i++;
             }
 
+        }
+        void Update()
+        {
+            if (animation > 0)
+            {
+                animation += Time.deltaTime * 2;
+                if (animation > 1)
+                {
+                    animation = 1;
+                    render = false;
+                }
+            }
+            if(animation < 0)
+            {
+                animation += Time.deltaTime * 2;
+                if (animation > 0)
+                {
+                    animation = 0;
+                }
+            }
+            if (Input.GetKeyDown(Loader.Main.menuToggle.Value))
+            {
+                if (render&&animation==0)
+                {
+                    AnimateHide();
+                }
+                else
+                {
+                    AnimateShow();
+                }
+            }
+        }
+        internal static void AnimateHide()
+        {
+            animation = 0.01f;
+        }
+        internal static void AnimateShow()
+        {
+            animation = -1f;
+            render = true;
         }
         static void DrawElementList(int wID)
         {

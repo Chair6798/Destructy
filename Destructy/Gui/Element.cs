@@ -9,7 +9,6 @@ namespace Destructy
     {
         internal string header;
         internal KeyCode bind;
-        internal Dictionary<string, object> data;
         internal virtual string GetRenderText()
         {
             return header == string.Empty ? "NULL" : header;
@@ -60,10 +59,16 @@ namespace Destructy
     internal class FuncElement : Element
     {
         internal UnityEvent Event = new UnityEvent();
+        internal bool Avaiable = true;
+        internal override string GetRenderText()
+        {
+            return Avaiable ? base.GetRenderText() : ("<s>" + base.GetRenderText() + "</s>");
+        }
         internal FuncElement(string header) : base(header){}
         internal override void Use()
         {
-            Event.Invoke();
+            if(Avaiable)
+                Event.Invoke();
         }
     }
     internal class StringElement : Element
