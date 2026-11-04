@@ -49,7 +49,7 @@ namespace Destructy
                 .OfType<GameObject>()
                 .Where(go => go.name.IndexOf("Minigun", System.StringComparison.OrdinalIgnoreCase) >= 0)
                 .ToList();
-            return results.Count > 0;
+            return results.Count > 0&&WeaponController.instance != null&&PlayerInventory.instance != null;
         }
     }
 }
