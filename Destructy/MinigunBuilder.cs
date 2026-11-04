@@ -31,7 +31,7 @@ namespace Destructy
             data.name = "minigun";
             data.DisplayName = "Minigun";
             data.MaxAmmo = 300;
-            data.StartReserveAmmo = 100;
+            data.StartReserveAmmo = 1500;
             data.AdditionalObjects = new List<GameObject>();
             data.DestructionRadius = 0.1f;
             data.DestructionVoxelSize = 0.1f;
@@ -41,7 +41,7 @@ namespace Destructy
             model.transform.localPosition = new Vector3(1.2909f, 0.0418f, 1.2036f);
             model.transform.localRotation = Quaternion.Euler(0f, 90f, 270f);
             WeaponController.instance.weapons.Add(data);
-            PlayerInventory.instance.items.Add(new InventoryItem(data, 999, 999));
+            PlayerInventory.instance.items.Add(new InventoryItem(data, 300, 1200));
         }
         internal static bool IsMinigunAvailable()
         {

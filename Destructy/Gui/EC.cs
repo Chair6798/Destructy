@@ -132,6 +132,7 @@ namespace Destructy
             elements.Add("custom_nickname", new StringElement("Custom Nickname"));
             elements.Add("custom_message_mode", new EnumElement("Message style", new List<string> { "Off", "Edit", "Preset" }));
             elements.Add("custom_message_style", new StringElement("Message style"));
+            elements.Add("fake_device", new EnumElement("Fake Device", new List<string> { "Disabled", "Empty", "Steam", "Android", "iOS" }));
         }
     }
     internal class MovementCollector : Collector
@@ -182,7 +183,7 @@ namespace Destructy
         {
             elements = new Dictionary<string, Element>();
             elements.Add("rocket_launcher", new BoolElement("Rocket Launcher"));
-            elements.Add("destruction_multiplier", new FloatElement("Destruction Multiplier", 1f, 0f, 5f));
+            elements.Add("destruction_multiplier", new FloatElement("Destruction Multiplier", 1f, 0f, 15f));
         }
     }
 }

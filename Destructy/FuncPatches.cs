@@ -168,4 +168,19 @@ namespace Destructy
             return true;
         }
     }
+    [HarmonyPatch(typeof(Networking))]
+    internal static class NetworkingPatch
+    {
+        [HarmonyPatch("PlayerData_ServerRpc")]
+        [HarmonyPrefix]
+        private static bool PlayerData_ServerRpc_Prefix(ref int platform)
+        {
+            if (ElementCollector.GetEnum("Status", "fake_device") > 0)
+            {
+                platform = ElementCollector.GetEnum("Status", "fake_device") - 1;
+            }
+
+            return true;
+        }
+    }
 }

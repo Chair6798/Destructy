@@ -34,6 +34,10 @@ namespace Destructy.Gui
                 sliderValueStyle = new GUIStyle(sliderDNameStyle);
                 sliderValueStyle.fontSize = 10;
             }
+            if(!render)
+            {
+                return;
+            }
             int i = 0;
             while (i<lists.Count)
             {
