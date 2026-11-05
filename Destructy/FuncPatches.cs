@@ -95,11 +95,16 @@ namespace Destructy
     {
         [HarmonyPatch("NetDamage")]
         [HarmonyPrefix]
-        private static bool NetDamagePatch(ref float force)
+        private static bool NetDamagePatch(Damagable __instance, ref float force, ref int dType)
         {
             if(ElementCollector.GetBool("Weapon", "one_hit"))
             {
                 force = 9999f;
+                if (__instance.GetComponent<Vehicle>() != null)
+                {
+                    dType = (int)DamageData.DamageType.Explosion;
+                }
+
             }
             return true;
         }
