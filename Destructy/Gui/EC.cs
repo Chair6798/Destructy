@@ -133,6 +133,7 @@ namespace Destructy
             elements.Add("custom_message_mode", new EnumElement("Message style", new List<string> { "Off", "Edit", "Preset" }));
             elements.Add("custom_message_style", new StringElement("Message style"));
             elements.Add("fake_device", new EnumElement("Fake Device", new List<string> { "Disabled", "Empty", "Steam", "Android", "iOS" }));
+            elements.Add("prevent_disconnect", new BoolElement("Prevent Disconnect"));
         }
     }
     internal class MovementCollector : Collector

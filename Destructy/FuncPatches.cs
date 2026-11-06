@@ -188,4 +188,19 @@ namespace Destructy
             return true;
         }
     }
+    [HarmonyPatch(typeof(NetworkManager))]
+    
+    internal static class NetworkManagerPatch
+    {
+        [HarmonyPatch("StartClient")]
+        [HarmonyPrefix]
+        private static bool StartClient_Prefix(NetworkManager __instance)
+        {
+            if (ElementCollector.GetBool("Status", "prevent_disconnect"))
+            {
+                NetworkManager.Singleton.NetworkConfig.ConnectionData = UTF8Encoding.UTF8.GetBytes($"{MainMenu.GetPlayerName()}@popa");
+            }
+            return true;
+        }
+    }
 }
