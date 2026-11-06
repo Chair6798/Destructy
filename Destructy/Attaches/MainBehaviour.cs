@@ -28,6 +28,14 @@ namespace Destructy.Attaches
             {
                 MinigunBuilder.Build();
             });
+            (ElementCollector.GetEvent("World", "clean_map")).AddListener(() =>
+            {
+                World.CleanMap();
+            });
+            (ElementCollector.GetEvent("World", "remove_fire")).AddListener(() =>
+            {
+                World.RemoveFire();
+            });
         }
         void Update()
         {

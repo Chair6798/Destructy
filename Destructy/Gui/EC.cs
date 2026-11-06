@@ -184,6 +184,8 @@ namespace Destructy
             elements = new Dictionary<string, Element>();
             elements.Add("rocket_launcher", new BoolElement("Rocket Launcher"));
             elements.Add("destruction_multiplier", new FloatElement("Destruction Multiplier", 1f, 0f, 15f));
+            elements.Add("clean_map", new FuncElement("Clean map"));
+            elements.Add("remove_fire", new FuncElement("Remove Fire"));
         }
     }
 }
