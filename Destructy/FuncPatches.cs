@@ -196,7 +196,7 @@ namespace Destructy
         [HarmonyPrefix]
         private static bool StartClient_Prefix(NetworkManager __instance)
         {
-            if (ElementCollector.GetBool("Status", "prevent_disconnect"))
+            if (ElementCollector.GetBool("Status", "prevent_disconnect")&&NetworkManager.Singleton!=null&&!NetworkManager.Singleton.IsHost)
             {
                 NetworkManager.Singleton.NetworkConfig.ConnectionData = UTF8Encoding.UTF8.GetBytes($"{MainMenu.GetPlayerName()}@popa");
             }
