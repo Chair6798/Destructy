@@ -4,6 +4,7 @@ using Destructy;
 using System.Xml.Serialization;
 using System.CodeDom;
 using System;
+using Unity.Netcode;
 namespace Destructy.Gui
 {
     internal class MainUIBehaviour : MonoBehaviour
@@ -13,6 +14,7 @@ namespace Destructy.Gui
         internal static float animation = 0f;
         internal static GUIStyle sliderDNameStyle;
         internal static GUIStyle sliderValueStyle;
+        internal static GUIStyle hostFeatureStyle;
         void Awake()
         {
             ElementCollector.Init();
@@ -33,6 +35,7 @@ namespace Destructy.Gui
                 sliderDNameStyle.fontSize = 12;
                 sliderValueStyle = new GUIStyle(sliderDNameStyle);
                 sliderValueStyle.fontSize = 10;
+                hostFeatureStyle = new GUIStyle(GUI.skin.button);
             }
             if(!render)
             {
@@ -122,6 +125,10 @@ namespace Destructy.Gui
             int index = 0;
             foreach(Element element in dictionary.Values)
             {
+                if(element.hostOnly&&!NetworkManager.Singleton.IsHost)
+                {
+                    continue;
+                }
                 DrawElement(element, index);
                 index++;
             }

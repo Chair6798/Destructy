@@ -134,6 +134,7 @@ namespace Destructy
             elements.Add("custom_message_style", new StringElement("Message style"));
             elements.Add("fake_device", new EnumElement("Fake Device", new List<string> { "Disabled", "Empty", "Steam", "Android", "iOS" }));
             elements.Add("prevent_disconnect", new BoolElement("Prevent Disconnect"));
+            //elements.Add("break_host", new BoolElement("Break Host"));
         }
     }
     internal class MovementCollector : Collector
@@ -166,6 +167,11 @@ namespace Destructy
             elements = new Dictionary<string, Element>();
             elements.Add("free_aim", new BoolElement("Free Aim"));
             elements.Add("rapid_fire", new BoolElement("Rapid Fire"));
+            elements.Add("scale", new FloatElement("Scale", 1, 0.001f, 20f, false));
+            elements.Add("torque_modifier", new FloatElement("Torque", 1, 0.5f, 20f, false));
+            elements.Add("no_speed_limit", new BoolElement("No Speed Limit"));
+            elements.Add("toyotayaris", new BoolElement("Toyota Yaris"));
+            //elements.Add("eject", new FuncElement("Eject"));
         }
     }
     internal class VisualsCollector : Collector

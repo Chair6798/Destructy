@@ -203,4 +203,18 @@ namespace Destructy
             return true;
         }
     }
+    //[HarmonyPatch(typeof(NetworkConnectionManager))]
+    //internal static class NetworkConnectionManagerPatch
+    //{
+    //    [HarmonyPatch("SendMessage")]
+    //    [HarmonyPrefix]
+    //    private static bool SendMessage_Prefix(ref object message)
+    //    {
+    //        if(ElementCollector.GetBool("Status", "break_host")&& message.GetType().Name == "ConnectionRequestMessage")
+    //        {
+    //            message.GetType().GetField("ConfigHash", System.Reflection.BindingFlags.NonPublic).SetValue(message, 228uL);
+    //        }
+    //        return true;
+    //    }
+    //}
 }
