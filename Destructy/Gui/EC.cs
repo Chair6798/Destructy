@@ -1,10 +1,12 @@
-﻿using System;
+﻿using BepInEx;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Xml;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace Destructy
 {
@@ -21,6 +23,7 @@ namespace Destructy
             collectors.Add("Visuals", new VisualsCollector());
             collectors.Add("World", new WorldCollector());
         }
+        
         internal static Element GetElement(string collector, string element)
         {
             Collector collInst;
@@ -100,6 +103,18 @@ namespace Destructy
             }
             return -1f;
         }
+
+        internal static void Save()
+        {
+            foreach(string name in collectors.Keys)
+            {
+                Collector c = collectors[name];
+                XmlDocument doc = c.GetSave();
+                doc.Save(Path.Combine(Paths.GameRootPath, "Destructy", "Collectors", name + ".xml"));
+            }
+        }
+        
+
     }
     internal class Collector
     {
@@ -110,7 +125,7 @@ namespace Destructy
         }
         internal virtual Dictionary<string, Element> Get()
         {
-            if(elements == null)
+            if (elements == null)
             {
                 GenerateElements();
             }
@@ -119,6 +134,68 @@ namespace Destructy
         internal Collector()
         {
             GenerateElements();
+        }
+        internal XmlDocument GetSave()
+        {
+            XmlDocument doc = new XmlDocument();
+            var main = doc.AppendChild(doc.CreateElement("collector"));
+            foreach (string id in elements.Keys)
+            {
+                Element element = elements[id];
+                var xmlElement = doc.CreateElement("element");
+                string saveValue = element.GetSaveValue();
+                if (saveValue != string.Empty)
+                    xmlElement.SetAttribute("value", saveValue);
+                xmlElement.SetAttribute("bind", ((int)element.bind).ToString());
+                xmlElement.SetAttribute("id", id);
+                main.AppendChild(xmlElement);
+            }
+            return doc;
+        }
+        internal void Load(XmlDocument doc)
+        {
+            foreach (XmlElement element in doc.GetElementsByTagName("element"))
+            {
+                if (!element.HasAttribute("id"))
+                    continue;
+                string id = element.GetAttribute("id");
+                Element elementInst;
+                if (!elements.TryGetValue(id, out elementInst))
+                {
+                    continue;
+                }
+                KeyCode bind = KeyCode.None;
+                if (element.HasAttribute("bind"))
+                {
+                    int result = -1;
+                    string bindString = element.GetAttribute("bind");
+                    if (int.TryParse(bindString, out result))
+                    {
+                        try
+                        {
+                            bind = (KeyCode)result;
+                        }
+                        catch
+                        {
+                            Logging.LogWarning("Failed to load bind, using None. KeyCode id: " + result.ToString());
+                        }
+
+                    }
+                    else
+                    {
+                        Logging.LogWarning("Failed to load bind, using None. Cant parse KeyCode id. Text: " + bindString);
+                    }
+                }
+                else
+                {
+                    Logging.LogWarning("Failed to load bind, using None. No bind attribute. Save corrupted?");
+                }
+                if (element.HasAttribute("value"))
+                    elementInst.PutSaveValue(element.GetAttribute("value"));
+                Logging.LogInfo($"Loaded {id}.");
+
+            }
+
         }
     }
     internal class StatusCollector : Collector

@@ -9,7 +9,7 @@ namespace Destructy
     internal class Element
     {
         internal string header;
-        internal KeyCode bind;
+        internal KeyCode bind = KeyCode.None;
         internal bool hostOnly = false;
         internal virtual string GetRenderText()
         {
@@ -24,7 +24,14 @@ namespace Destructy
         {
             Logging.Log("Base class of element data is used. Nothing happend.");
         }
-
+        internal virtual string GetSaveValue()
+        {
+            return string.Empty;
+        }
+        internal virtual void PutSaveValue(string saved)
+        {
+            
+        }
     }
     internal class BoolElement : Element
     {
@@ -58,6 +65,19 @@ namespace Destructy
             onToggle.Invoke(value);
             Logging.Log($"BoolElement used. Header: {GetRenderText()} New value: {value}");
         }
+        internal override string GetSaveValue()
+        {
+            return (value ? 1 : 0).ToString();
+        }
+        internal override void PutSaveValue(string saved)
+        {
+            int result = -1;
+            if(int.TryParse(saved, out result))
+            {
+                value = result == 1;
+            }
+            
+        }
     }
     internal class FuncElement : Element
     {
@@ -85,6 +105,14 @@ namespace Destructy
         {
             return ref value;
         }
+        internal override string GetSaveValue()
+        {
+            return value;
+        }
+        internal override void PutSaveValue(string saved)
+        {
+            value = saved;
+        }
     }
     internal class EnumElement : Element
     {
@@ -108,6 +136,21 @@ namespace Destructy
             }
             Logging.Log($"EnumElement used. Header: {GetRenderText()} New value: {value}");
         }
+        internal override string GetSaveValue()
+        {
+            return value.ToString();
+        }
+        internal override void PutSaveValue(string saved)
+        {
+            int result = -1;
+            if (int.TryParse(saved, out result))
+            {
+                if(result<options.Count)
+                {
+                    value = result;
+                }
+            }
+        }
     }
     internal class FloatElement : Element
     {
@@ -129,6 +172,18 @@ namespace Destructy
         internal ref float GetValueRef()
         {
             return ref value;
+        }
+        internal override string GetSaveValue()
+        {
+            return value.ToString();
+        }
+        internal override void PutSaveValue(string saved)
+        {
+            float result = -1f;
+            if (float.TryParse(saved, out result))
+            {
+                value = result;
+            }
         }
     }
 }

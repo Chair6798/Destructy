@@ -97,7 +97,7 @@ namespace Destructy.Gui
     }
     internal class ElementList
     {
-        internal ElementList(float height, Dictionary<string,Element> dictionary)
+        internal ElementList(float height, Dictionary<string, Element> dictionary)
         {
             visual_height = height;
             this.dictionary = dictionary;
@@ -138,15 +138,22 @@ namespace Destructy.Gui
             switch(element.GetType().Name)
             {
                 case ("StringElement"):
+                    string before = ((StringElement)element).value;
                     ((StringElement)element).value = GUI.TextField(new Rect(5, 5 + index * (30 + 5), 190, 30), ((StringElement)element).value);
+                    if (((StringElement)element).value != before)
+                        ElementCollector.Save();
                     break;
                 case ("FloatElement"):
                     var fe = ((FloatElement)element);
+                    float beforeFloat = fe.value;
                     GUI.Label(new Rect(5, 5 + index * (30 + 5), 95+50, 15), fe.GetRenderText(), MainUIBehaviour.sliderDNameStyle);
                     fe.value = GUI.HorizontalSlider(new Rect(5, 5 + index * (30 + 5)+15, 190, 15), fe.value, fe.min, fe.max);
-                    if(GUI.Button(new Rect(5+95+50, 5 + index * (30 + 5) + 0, 45, 15), "Reset"))
+                    if (fe.value != beforeFloat)
+                        ElementCollector.Save();
+                    if (GUI.Button(new Rect(5+95+50, 5 + index * (30 + 5) + 0, 45, 15), "Reset"))
                     {
                         fe.Reset();
+                        ElementCollector.Save();
                     }
                     GUI.Label(new Rect(5, 5 + index * (30 + 5)+20, 95 + 50, 15), Math.Round(fe.value, 2).ToString(), MainUIBehaviour.sliderValueStyle);
                     break;
@@ -154,6 +161,7 @@ namespace Destructy.Gui
                     if (GUI.Button(new Rect(5, 5 + index * (30 + 5), 190, 30), element.GetRenderText()))
                     {
                         element.Use();
+                        ElementCollector.Save();
                     }
                     break;
             }

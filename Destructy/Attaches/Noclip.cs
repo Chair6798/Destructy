@@ -22,8 +22,8 @@ namespace Destructy.Attaches
                 rb = PlayerController.instance.GetComponent<Rigidbody>();
             }
             rb.isKinematic = isEnabled();
-            if(!isEnabled()) {return;}
-            PlayerController.instance.transform.position += (Camera.main.transform.forward*((Input.GetKey(KeyCode.W)?1:0)- (Input.GetKey(KeyCode.S) ? 1 : 0)) + Camera.main.transform.right * ((Input.GetKey(KeyCode.D) ? 1 : 0) - (Input.GetKey(KeyCode.A) ? 1 : 0))) * 20 * (Input.GetKey(KeyCode.LeftShift) ? 2 : 1) * Time.deltaTime;
+            if(!isEnabled()||!UiButtons.instance.CanShootAndLook()) {return;}
+            PlayerController.instance.transform.position += (Camera.main.transform.forward*((Input.GetKey(KeyCode.W)?1:0)- (Input.GetKey(KeyCode.S) ? 1 : 0)) + Camera.main.transform.right * ((Input.GetKey(KeyCode.D) ? 1 : 0) - (Input.GetKey(KeyCode.A) ? 1 : 0))+Vector3.up * ((Input.GetKey(KeyCode.Space) ? 1 : 0) - (Input.GetKey(KeyCode.LeftControl) ? 1 : 0))) * 20 * (Input.GetKey(KeyCode.LeftShift) ? 2 : 1) * Time.deltaTime;
         }
         bool isEnabled()
         {
