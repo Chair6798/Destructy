@@ -22,6 +22,7 @@ namespace Destructy
             collectors.Add("Vehicle", new VehicleCollector());
             collectors.Add("Visuals", new VisualsCollector());
             collectors.Add("World", new WorldCollector());
+            Load();
         }
         
         internal static Element GetElement(string collector, string element)
@@ -110,10 +111,36 @@ namespace Destructy
             {
                 Collector c = collectors[name];
                 XmlDocument doc = c.GetSave();
+                string dirPath = Path.Combine(Paths.GameRootPath, "Destructy", "Collectors");
+                if (!Directory.Exists(dirPath))
+                {
+                    Directory.CreateDirectory(dirPath);
+                }
                 doc.Save(Path.Combine(Paths.GameRootPath, "Destructy", "Collectors", name + ".xml"));
             }
         }
-        
+        internal static void Load()
+        {
+            foreach (string name in collectors.Keys)
+            {
+                string path = Path.Combine(Paths.GameRootPath, "Destructy", "Collectors", name + ".xml");
+                if(File.Exists(path))
+                {
+                    XmlDocument doc = new XmlDocument();
+                    try
+                    {
+                        doc.Load(path);
+                        Logging.LogInfo("Loaded document. Putting data in collector...");
+                        collectors[name].Load(doc);
+                    }
+                    catch(Exception e)
+                    {
+                        Logging.LogWarning($"Failed to load save for {name}. Error: {e.Message}");
+                    }
+                }
+            }
+        }
+
 
     }
     internal class Collector
