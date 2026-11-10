@@ -1,4 +1,4 @@
-<img width="1920" height="1080" alt="изображение" src="https://github.com/user-attachments/assets/6345135b-8721-4e5d-b7f9-c7a7780169af" />
+<img width="1920" height="1080" alt="изображение" src="https://github.com/user-attachments/assets/ea15c6e0-03e3-4a39-8b84-df161e3a8341" />
 
 ### [RU] Destructy - это мощный чит имеющий функционал, полностью доступный с клиента.
 При установке рекомендую изучить [Wiki](https://github.com/Chair6798/Destructy/wiki/Installation-guide) в котором по шагам описана установка.
